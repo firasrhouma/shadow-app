@@ -1,0 +1,109 @@
+version: "3.8"
+
+services:
+  product-mysql:
+    image: mysql:8.0.33
+    command:
+      - --default-authentication-plugin=mysql_native_password
+      - --skip-log-bin
+      - --bind-address=0.0.0.0
+    environment:
+      MYSQL_ROOT_PASSWORD: mysecret
+      MYSQL_DATABASE: productdb
+      MYSQL_ROOT_HOST: "%"
+    ports:
+      - "3311:3306"         # host:container
+    volumes:
+      - product_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-uroot", "-pmysecret"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  order-mysql:
+    image: mysql:8.0.33
+    command:
+      - --default-authentication-plugin=mysql_native_password
+      - --skip-log-bin
+      - --bind-address=0.0.0.0
+    environment:
+      MYSQL_ROOT_PASSWORD: mysecret
+      MYSQL_DATABASE: orderdb
+      MYSQL_ROOT_HOST: "%"
+    ports:
+      - "3310:3306"
+    volumes:
+      - order_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-uroot", "-pmysecret"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  product-service:
+    build:
+      context: ./back-end1/product-service
+    # don't set container_name (avoids collisions)
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_DATASOURCE_URL: jdbc:mysql://product-mysql:3306/productdb?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: mysecret
+    volumes:
+      - ./back-end1/product-service/src:/app/src
+      - ./back-end1/product-service/pom.xml:/app/pom.xml
+      - ./back-end1/product-service/target:/app/target
+    depends_on:
+      - product-mysql
+    networks:
+      - app-network
+    restart: on-failure
+
+  order-service:
+    build:
+      context: ./back-end2/order-Service
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_DATASOURCE_URL: jdbc:mysql://order-mysql:3306/orderdb?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: mysecret
+    volumes:
+      - ./back-end2/order-Service/src:/app/src
+      - ./back-end2/order-Service/pom.xml:/app/pom.xml
+      - ./back-end2/order-Service/target:/app/target
+    depends_on:
+      - order-mysql
+    networks:
+      - app-network
+    restart: on-failure
+
+  frontend:
+    build:
+      context: ./front-end
+    ports:
+      - "80:80"
+    depends_on:
+      - product-service
+      - order-service
+    networks:
+      - app-network
+    restart: unless-stopped
+
+volumes:
+  product_mysql_data:
+  order_mysql_data:
+
+networks:
+  app-network:
+    driver: bridge

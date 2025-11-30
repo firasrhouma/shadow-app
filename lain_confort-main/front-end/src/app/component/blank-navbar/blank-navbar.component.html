@@ -1,0 +1,65 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light py-0">
+  <div class="container">
+    <a class="navbar-brand ps-2" routerLink="home">
+      <img src="images/Laine.png" class="rounded-2" alt="logo" />
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Basculer la navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Liens de navigation -->
+      <ul class="navbar-nav ms-auto text-center">
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active-link" routerLink="/home">Accueil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active-link" routerLink="/products" [routerLinkActiveOptions]="{ exact: true }">Produits</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active-link" routerLink="/categories" [routerLinkActiveOptions]="{ exact: true }">Catégories</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active-link" routerLink="/orders" [routerLinkActiveOptions]="{ exact: true }">Commandes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active-link" routerLink="/contact-us">Contact</a>
+        </li>
+      </ul>
+
+      <!-- Icônes alignées -->
+      <ul class="navbar-nav icons d-flex flex-row mb-3 mb-lg-0 ms-auto">
+
+        <li class="nav-item flex-grow-1 position-relative">
+          <a class="nav-link text-center" routerLinkActive="active-link" routerLink="/wishlist" [routerLinkActiveOptions]="{ exact: true }">
+            <i class="wishlist-icon fa-solid fa-heart"></i>
+          </a>
+          <span class="spanWishlist">{{ wishListCounter }}</span>
+        </li>
+
+        <li class="nav-item flex-grow-1 position-relative">
+          <a class="nav-link text-center" routerLinkActive="active-link" routerLink="/cart" [routerLinkActiveOptions]="{ exact: true }">
+            <i class="fa-solid fa-cart-plus"></i>
+            <span
+              *ngIf="cartCount > 0"
+              class="position-absolute translate-middle badge rounded-pill bg-danger cart-badge"
+              style="font-size: 0.7rem;"
+            >
+              {{ cartCount }}
+              <span class="visually-hidden">articles dans le panier</span>
+            </span>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>

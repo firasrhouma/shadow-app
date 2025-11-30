@@ -1,0 +1,434 @@
+:root {
+  --secondary-color: #6c757d;
+  --text-muted: #6c757d;
+}
+
+
+section.container {
+  width: 100%;
+  cursor: pointer;
+}
+
+section.container h1 {
+  text-align: center;
+  font-weight: 700;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+table {
+  width: 100%;
+  margin: 0 auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: #fff;
+  border-radius:5px var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgb(0 0 0 / 0.1);
+  position: relative;
+  z-index: 0;
+
+
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
+}
+
+table thead tr th {
+  padding: 1rem 1rem;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 2px solid var(--secondary-color);
+  text-align: left;
+  user-select: none;
+}
+
+table thead tr th.text-center {
+  text-align: center;
+}
+
+table thead tr th.text-end {
+  text-align: right;
+}
+
+table tbody tr td {
+  padding: 30px 10px;
+  vertical-align: middle;
+  padding-inline-end: 20px;
+}
+
+table tbody tr td img {
+  width: 150px !important;
+  height: 150px !important;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+table tbody tr td p {
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+table tbody tr td small {
+  color: var(--text-muted);
+}
+
+table tbody tr td a {
+  text-decoration: none;
+  color: black;
+  margin: 3px 0;
+  display: block;
+  font-size: 20px;
+}
+
+table tbody tr td div.conQuaintiy {
+  border: 2px solid var(--secondary-color);
+  padding: 8px 13px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+table tbody tr td div.conQuaintiy button {
+  border: none;
+  background-color: white;
+  padding: 0 8px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+table tbody tr td div.conQuaintiy button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+table tbody tr td div.conQuaintiy button:hover:not(:disabled) {
+  color: var(--secondary-color);
+}
+
+table tbody tr td div.conQuaintiy div {
+  padding: 0 10px;
+  font-size: 20px;
+  min-width: 24px;
+  text-align: center;
+}
+
+table tbody tr td div.delete {
+  cursor: pointer;
+  transition: color 0.5s ease;
+  margin-left: 15px;
+  font-size: 18px;
+}
+
+table tbody tr td div.delete:hover {
+  color: red;
+}
+
+/* Coupon and Checkout Section */
+
+section .conCoupon {
+  width: 300px;
+}
+
+section .conCoupon input {
+  width: 100%;
+  border-radius: 7px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ced4da;
+  font-size: 16px;
+}
+
+section .conCoupon .error {
+  color: red;
+  margin: 0 0 5px;
+  font-size: 16px;
+}
+
+section .conCoupon button {
+  display: block;
+  width: 100%;
+  border: 2px solid black;
+  border-radius: 7px;
+  color: white;
+  background-color: black;
+  padding: 8px 0;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+section .conCoupon button:hover {
+  color: black;
+  background-color: white;
+}
+
+/* Checkout summary */
+
+section .conCheckout {
+  border: 1px solid black;
+  padding: 20px 25px;
+  border-radius: 7px;
+  width: 300px;
+  background-color: #fafafa;
+}
+
+section .conCheckout div {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--secondary-color);
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+section .conCheckout div:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+section .conCheckout div p {
+  margin-bottom: 8px;
+}
+
+section .conCheckout div h5 {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+section .conCheckout a {
+  display: block;
+  width: 100%;
+  border: 2px solid black;
+  border-radius: 7px;
+  color: white;
+  background-color: black;
+  padding: 10px 0;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+section .conCheckout a:hover {
+  color: black;
+  background-color: white;
+}
+
+.coupon-section {
+  max-width: 350px;
+  margin-bottom: 1rem;
+}
+
+.coupon-section button {
+  width: 100%;
+  padding: 10px 0;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.coupon-section button:hover {
+  background-color: #004085;
+  border-color: #004085;
+}
+
+.coupon-error {
+  color: #dc3545;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+
+
+
+
+.mobile h2 {
+  padding: 10px 15px;
+  border-bottom: 2px solid var(--secondary-color);
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.mobile div {
+  background-color: white;
+  padding: 15px 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 1.5rem;
+}
+
+.mobile div .conQuaintiy {
+  border: 2px solid var(--secondary-color);
+  padding: 6px 10px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mobile div .conQuaintiy button {
+  border: none;
+  background-color: white;
+  padding: 0 6px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.mobile div .conQuaintiy button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.mobile div .conQuaintiy button:hover:not(:disabled) {
+  color: var(--secondary-color);
+}
+
+.mobile div .conQuaintiy div {
+  padding: 0 10px;
+  font-size: 18px;
+  min-width: 24px;
+  text-align: center;
+}
+
+.mobile div .delete {
+  cursor: pointer;
+  transition: color 0.5s ease;
+  font-size: 18px;
+  margin-left: 15px;
+}
+
+.mobile div .delete:hover {
+  color: red;
+}
+
+.mobile {
+  display: none;
+}
+
+
+
+
+@media (max-width: 700px) {
+  table {
+    width: 100%;
+  }
+
+  .webScrean,
+  table {
+    display: none !important;
+  }
+
+  .mobile {
+    display: block;
+  }
+
+  section.container {
+    padding: 0 10px;
+  }
+
+  section .conCoupon,
+  section .conCheckout {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+
+  section .conCoupon input,
+  section .conCoupon button,
+  section .conCheckout a {
+    font-size: 1.1rem;
+  }
+
+  .mobile div img {
+    width: 70px !important;
+    height: 70px !important;
+  }
+
+  .mobile div {
+    padding: 10px 10px;
+  }
+
+  .mobile div .conQuaintiy {
+    gap: 6px;
+  }
+
+
+  .mobile div .delete {
+    margin-left: 10px;
+  }
+}
+
+
+
+
+.empty-cart-message {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty-cart-message h4 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+.empty-cart-message p {
+  font-size: 1rem;
+  color: #6c757d;
+  margin-bottom: 20px;
+}
+.empty-cart-message .btn {
+  font-size: 1rem;
+  padding: 10px 25px;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+
+
+.empty-cart-message .btn i {
+  margin-right: 8px;
+}
+.bt{
+  margin-top: 20px;
+}
+@media (max-width: 992px) {
+  .col-md-9,
+  .col-md-3 {
+    width: 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .col-md-3 {
+    margin-top: 20px;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 700px) {
+  .mobile {
+    display: block;
+  }
+}

@@ -1,0 +1,96 @@
+<div class="container py-5" >
+  <div class="row align-items-center">
+    <!-- Product Images -->
+    <div class="col-lg-5 offset-lg-1">
+      <div class="image rounded-3 mb-1">
+        <div class="imageContainer">
+          <img
+            [src]="getProductImage(productDetails.id)"
+            [alt]="productDetails.name"
+            class="w-100 rounded-3"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Details + Customization -->
+    <div class="col-lg-5">
+      <div class="details">
+        <h1 class="h3 mt-3 mb-4 fw-bold text-light-emphasis">{{ productDetails.name }}</h1>
+        <p class="desc text-light-emphasis">{{ productDetails.description }}</p>
+
+        <!-- Price: if mattress show computedPrice, otherwise show product price -->
+        <h4 class="fw-bold my-4 text-light-emphasis">
+          {{ isMatelas ? (computedPrice + ' DT') : (productDetails.price + ' DTN') }}
+        </h4>
+
+        <!-- Mattress customization card (only visible for mattresses) -->
+        <div *ngIf="isMatelas" class="card p-3 mb-3">
+          <h5 class="mb-2">Personnaliser le matelas</h5>
+
+          <!-- Type: entretien or commande -->
+          <div class="mb-2">
+            <label class="me-3"><strong>Type:</strong></label>
+            <label class="me-2">
+              <input type="radio" name="matType" value="entretien"
+                     [(ngModel)]="selectedType" (change)="onOptionChange()" /> Entretien
+            </label>
+            <label>
+              <input type="radio" name="matType" value="commande"
+                     [(ngModel)]="selectedType" (change)="onOptionChange()" /> Commande
+            </label>
+          </div>
+
+          <!-- Size selection -->
+          <div class="mb-2">
+            <label><strong>Taille:</strong></label>
+            <select class="form-select w-auto d-inline-block ms-2"
+                    [(ngModel)]="selectedSize" (change)="onOptionChange()">
+              <option *ngFor="let s of sizes" [value]="s">{{ s }}</option>
+            </select>
+          </div>
+
+          <!-- Tissu option (only for 'entretien') -->
+          <div class="mb-3" *ngIf="selectedType === 'entretien'">
+            <label>
+              <input type="checkbox" [(ngModel)]="withTissu" (change)="onOptionChange()" />
+              &nbsp;Avec tissu
+            </label>
+          </div>
+
+          <!-- Computed price shown again in the card -->
+          <div class="mb-3">
+            <strong>Prix sélectionné:</strong>
+            <span class="fs-5 ms-2">{{ computedPrice }} DT</span>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="btns d-flex justify-content-start gap-3">
+          <!-- If mattress, use addToCartWithOptions; otherwise use addToCart -->
+          <button
+            class="btn btn-light fw-semibold border border-1 btn-sm py-3 px-4 w-100"
+            *ngIf="isMatelas"
+            (click)="addToCartWithOptions()"
+          >
+            ADD TO CART
+          </button>
+
+          <button
+            class="btn btn-light fw-semibold border border-1 btn-sm py-3 px-4 w-100"
+            *ngIf="!isMatelas"
+            (click)="addToCart(productDetails)"
+          >
+            ADD TO CART
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="text-center py-5">
+    <p class="text-light-emphasis">Loading product...</p>
+  </div>
+</ng-template>

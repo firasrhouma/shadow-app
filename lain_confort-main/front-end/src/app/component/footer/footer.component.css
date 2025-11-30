@@ -1,0 +1,76 @@
+footer {
+  background: linear-gradient(to right, #1f1f1f, #2e2220);
+  color: var(--text-light);
+}
+
+.form-wrapper button {
+  background-color: var(--button-background);
+  color: black;
+  width: 200px;
+}
+.form-wrapper button:hover {
+  background-color: var(--button-background-hover);
+}
+.form-wrapper input::placeholder {
+  color: #ccc;
+  padding-left: 5px;
+}
+
+.form-wrapper {
+  border: 1px solid #aaa;
+}
+.content-large ul li,
+.content-small ul li {
+  padding: 5px 0;
+  cursor: pointer;
+}
+.content-large i,
+.content-small i {
+  width: 18px;
+  height: 18px;
+}
+
+.content-large p,
+.content-large address,
+.content-large i {
+  color: var(--text-secondary);
+}
+.content-large button:hover {
+  background-color: var(--button-background);
+}
+
+.accordion-button::after {
+  display: none !important;
+}
+
+.accordion-button:not(.collapsed) .icon-toggle i::before {
+  content: "\f068";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+}
+.accordion-button.collapsed .icon-toggle i::before {
+  content: "\f067";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+}
+.headTitle {
+  line-height: 1.4;
+}
+@media (max-width: 991px) {
+  .headTitle {
+    font-size: 20px !important;
+  }
+  .copyright {
+    justify-content: center !important;
+  }
+}
+a {
+  color: inherit;         /* takes the color of the parent text */
+  text-decoration: none;  /* removes underline */
+  cursor: pointer;        /* optional: shows pointer on hover */
+}
+
+a:hover {
+  color: inherit;         /* keeps the same color on hover */
+  text-decoration: none;  /* no underline on hover */
+}

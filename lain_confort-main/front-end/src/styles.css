@@ -1,0 +1,157 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* start owl carsouel settings */
+.owl-theme .owl-dots .owl-dot span {
+  display: block !important;
+  width: 15px !important;
+  height: 4px !important;
+  margin: 0 10px;
+}
+
+.owl-theme .owl-dots .owl-dot.active span {
+  width: 25px !important;
+  background-color: rgb(14, 14, 14) !important;
+}
+
+/* end owl carsouel settings */
+:root {
+  /* Primary Colors (for header, navbar, footer, etc.) */
+  --primary-color: #1a1a1a; /* Matches the header and footer background */
+  --primary-dark: #121212; /* Suitable for hover or active states */
+
+  /* Secondary Colors (used in light sections or alternate backgrounds) */
+  --secondary-color: #f5f5f5; /* Suitable for light backgrounds */
+  --secondary-light: #fafafa; /* Matches the background of product cards */
+
+  /* Backgrounds */
+  --background-color: #ffffff; /* Matches the main background */
+  --background-dark: #34252c; /* Matches the darker part of the footer gradient */
+  /* Note: Use --primary-color and --background-dark together for the footer gradient */
+
+  /* Text Colors */
+  --text-color: #333333; /* Matches primary text in both sections */
+  --text-light: #ffffff; /* Matches white text in the footer */
+  --text-muted: #666666; /* Matches secondary text like "Sort by" */
+  --text-secondary: #b0b0b0; /* For light gray text in footer links */
+
+  /* Inputs and Buttons */
+  --input-background: #4a4a4a; /* For the email input field background */
+  --input-placeholder: #a0a0a0; /* For placeholder text in the email field */
+  --input-border: #666666; /* For the input field border (assumed based on design) */
+  --button-background: #ffffff; /* Matches the "SUBMIT NOW" button background */
+  --button-background-hover: #e0e0e0; /* For the button background in hover state */
+  --button-text: #333333; /* Matches the button text */
+
+  /* Accent Colors: For icons and highlighted elements */
+  --accent-color: #d4a017; /* For icons and filters */
+  --icon-hover: #d4a017; /* For the hover state of icons like social media icons */
+
+  /* Borders and Special Messages */
+  --border-color: #e0e0e0; /* Suitable for borders */
+  --success-color: #28a745; /* Green for success messages like "Added to cart" */
+  --error-color: #dc3545; /* Red for error messages like "Invalid field" */
+}
+
+/* Animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 2px rgba(40, 167, 69, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 3px rgba(40, 167, 69, 1);
+  }
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.navbar {
+  position: fixed;
+  z-index: 2000;
+  width: 100%;
+}
+
+/* scrollbar  */
+::-webkit-scrollbar {
+  width: 15px;
+  height: 15px;
+}
+
+/* تنسيق الـ Scroll Track */
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 3px;
+  border: 2px solid #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+::-webkit-scrollbar-horizontal {
+  height: 15px;
+}
+
+::-webkit-scrollbar-vertical {
+  width: 15px;
+}
+/* scrollbar  */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.navbar-toggler:focus {
+  box-shadow: 0 0 5px #ccc;
+}

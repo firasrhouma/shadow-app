@@ -1,0 +1,18 @@
+<h3 class="py-2 section-title">Categories</h3>
+<owl-carousel-o [options]="categoryOptions">
+  @for(category of categoryList; track category._id) {
+    <ng-template carouselSlide>
+      <div
+        class="text-center p-2 border shadow-sm m-2 rounded-2"
+        [routerLink]="['/categories', category.name]"
+      >
+        <img
+          height="300px"
+          class="rounded-5 w-100 object-fit-contain"
+          [src]="category.image"
+        />
+        <h5 class="text-main pt-2">{{ category.name }}</h5>
+      </div>
+    </ng-template>
+  }
+</owl-carousel-o>

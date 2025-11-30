@@ -1,0 +1,24 @@
+.category {
+    cursor: pointer;
+    transition: .3s;
+}
+.category:hover {
+    transform: scale(1.03);
+}
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  color: #2c3e50;
+  position: relative;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: red;
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}

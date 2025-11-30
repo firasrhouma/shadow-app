@@ -1,0 +1,63 @@
+<section class="popular-products">
+  <div class="container">
+    <div class="row g-4 py-5">
+
+      <!-- Si la liste de souhaits contient des articles -->
+      <ng-container *ngIf="wishlistItems()?.length; else emptyWishlist">
+        <div
+          class="col-sm-6 col-md-4 col-lg-3"
+          *ngFor="let product of wishlistItems()"
+        >
+          <div class="product-card card h-100 border-0">
+            <!-- Retirer de la liste de souhaits -->
+            <button class="wishlist-btn" (click)="removeItem(product.id)">
+              <i class="bi bi-heart-fill text-danger"></i>
+            </button>
+
+            <!-- Images du produit -->
+            <div class="product-image rounded-2 overflow-hidden">
+              <img
+                crossorigin="anonymous"
+                [src]="getProductImage(product.id)"
+                [alt]="product.name"
+                class="img-fluid product-thumbnail w-100 object-fit-contain"
+              />
+            </div>
+
+            <!-- Détails du produit -->
+            <div class="product-details p-3" [routerLink]="'/products/' + product.id">
+              <span class="product-category">{{ product.category || 'Général' }}</span>
+              <h3 class="product-title one-line">{{ product.name }}</h3>
+
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price fw-bold text-danger fs-4">{{ product.price }} DNT</span>
+                <span class="rating text-warning d-flex align-items-center gap-1">
+                  <i class="fas fa-star"></i>
+                  <i *ngIf="product.ratingsAverage % 1 !== 0" class="fa-solid fa-star-half-stroke"></i>
+                </span>
+              </div>
+
+              <button class="add-to-cart-btn w-100 mt-3" (click)="addToCart(product)">
+                Ajouter au panier
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Si la liste de souhaits est vide -->
+      <ng-template #emptyWishlist>
+        <div class="col-md-6 m-auto text-center">
+          <h4 class="text-dark mb-3">Votre liste de souhaits est vide</h4>
+          <p class="text-muted mb-4">
+            Il semble que vous n’ayez pas encore ajouté de produits à votre liste de souhaits.
+          </p>
+          <a routerLink="/products" class="btn btn-dark text-white btn-sm rounded-3 shadow-sm">
+            <i class="fa fa-arrow-left mr-2"></i> Aller aux produits
+          </a>
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,43 @@
+<section class="popular-products">
+  <div class="container">
+    <div class="row g-4 py-5">
+      <!-- Loop through products -->
+      <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let product of categoryList" >
+        <div class="product-card card h-100 border-0">
+
+          <!-- Product Image -->
+          <div class="product-image rounded-2 overflow-hidden">
+            <img
+              *ngFor="let img of product.images"
+              [src]="getProductImage(product.id)"
+              [alt]="product.name"
+              class="img-fluid product-thumbnail w-100 object-fit-contain mb-2"
+              (click)="goToProduct(product.id)"
+            />
+          </div>
+
+          <!-- Product Details -->
+          <div class="product-details p-3">
+            <h3 class="product-title one-line">{{ product.name }}</h3>
+            <p class="product-description">{{ product.description }}</p>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="price fw-bold text-danger fs-4">
+                {{ product.price }} DNT
+              </span>
+            </div>
+
+            <!-- Add to Cart button for user -->
+              <button
+                class="add-to-cart-btn w-100 mt-3"
+                [routerLink]="['/products', product.id]"
+              >
+               Voir details
+              </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

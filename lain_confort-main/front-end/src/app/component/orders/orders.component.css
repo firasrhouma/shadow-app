@@ -1,0 +1,144 @@
+section {
+  margin-top: 40px;
+}
+
+section h2 {
+  margin-top: 40px;
+}
+section div .bigCon {
+  padding: 10px;
+  border: 2px solid var(--secondary-color);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  margin-top: 30px;
+}
+section div .bigCon:last-child {
+  padding: 25px;
+}
+section div .bigCon .conAddress {
+  background: #c2d2e227;
+  padding: 14px 20px;
+  border-radius: 10px;
+  /* width: 90%; */
+  /* margin:  20px auto 0px; */
+}
+section div .bigCon .conAddress h5 {
+  font-size: 20px;
+  font-weight: 400;
+}
+section div .bigCon .conItems {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: left;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+section div .bigCon .conItems .item {
+  width: fit-content;
+  min-width: 220px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+section div .bigCon .conItems .delete {
+  background-color: #c60404;
+  color: white;
+  padding: 7px 12px;
+  border-radius: 7px;
+  border: 2px solid #c60404;
+  transition: 0.5s;
+  display: block;
+}
+section div .bigCon .conItems .delete:hover {
+  background-color: white;
+  color: #c60404;
+}
+section div .bigCon .conItems .item div {
+  position: relative;
+}
+section div .bigCon .conItems .item img {
+  width: 150px;
+}
+section div .bigCon .conItems .item div .quantity {
+  position: absolute;
+  z-index: 17;
+  top: 0px;
+  right: 0px;
+  /* background: rgb(208, 203, 203); */
+  background: #333;
+  padding: 6px 10px;
+  border-radius: 50%;
+  font-size: 13px;
+  color: white;
+  font-weight: 500;
+}
+/* section div .bigCon .conItems .item div {
+  width: 100%;
+} */
+
+/* section div:last-of-type{
+  width: 800px;
+  flex-basis: 350px;
+} */
+/* @media (max-width:500px) {
+  section div:last-of-type{
+    width: 90%;
+    margin: auto;
+  }
+} */
+
+section .bigCon .conCheckout {
+  padding: 10px;
+  width: 100%;
+}
+section .bigCon .conCheckout div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 7px;
+  width: 100%;
+}
+section .bigCon .conCheckout div p {
+  margin-bottom: 2px;
+  font-size: 17px;
+}
+section .bigCon .conCheckout div h5 {
+  font-size: 18px;
+  font-weight: 400;
+}
+section .cancelOrder {
+  background-color: #c60404;
+  color: white;
+  border: 2px solid #c60404;
+  /* padding: 5px 10px; */
+  padding: 7px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: 0.5s;
+  display: block;
+  width: 100%;
+  /* margin: auto; */
+}
+
+section .cancelOrder:hover {
+  background-color: black;
+  border: 2px solid black;
+}
+
+section .secuirty {
+  color: var(--text-muted);
+  margin-bottom: 30px;
+}
+/* section .secuirty { */
+section .secuirty p {
+  font-size: 11px;
+}
+
+.bigCon hr:last-child {
+  display: none;
+}
+

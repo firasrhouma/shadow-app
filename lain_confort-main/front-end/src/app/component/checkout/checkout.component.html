@@ -1,0 +1,79 @@
+<div class="bg-white p-3 p-md-5 w-md-50">
+  <h2 class="text-center mb-4 mb-md-5 fw-bold">Order Details</h2>
+
+  <!-- Success / Error messages -->
+  <div *ngIf="successMessage" class="alert alert-success" role="alert">
+    <strong>Succès :</strong> {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    <strong>Erreur :</strong> {{ errorMessage }}
+  </div>
+
+  <form [formGroup]="OrderForm" (ngSubmit)="onSubmit()">
+    <div class="form-group mb-3">
+      <label>Nom et Prénom</label>
+      <input type="text" formControlName="details" class="form-control shadow-sm" placeholder="Votre Nom & Prénom" />
+      <div *ngIf="OrderForm.get('details')?.invalid && OrderForm.get('details')?.touched" class="text-danger">
+        <small *ngIf="OrderForm.get('details')?.hasError('required')">Nom & prénom est obligatoire.</small>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Numéro de télephone</label>
+      <input type="text" formControlName="phone" class="form-control shadow-sm" placeholder="Votre Numéro"
+             [ngClass]="{ 'is-invalid': OrderForm.get('phone')?.invalid && OrderForm.get('phone')?.touched }" />
+      <div *ngIf="OrderForm.get('phone')?.invalid && OrderForm.get('phone')?.touched" class="text-danger">
+        <small *ngIf="OrderForm.get('phone')?.hasError('required')">Numero est obligatoire.</small>
+        <small *ngIf="OrderForm.get('phone')?.hasError('pattern')">Format invalide.</small>
+      </div>
+    </div>
+
+<!-- Region select (obligatoire) -->
+<div class="form-group mb-2">
+  <label>Région</label>
+  <select
+    formControlName="region"
+    class="form-control shadow-sm"
+    [ngClass]="{ 'is-invalid': OrderForm.get('region')?.invalid && OrderForm.get('region')?.touched }"
+  >
+    <option value="">Choisir la région...</option>
+    <option value="Ben Arous">Ben Arous</option>
+    <option value="Manouba">Manouba</option>
+    <option value="Ariana">Ariana</option>
+    <option value="Tunis">Tunis</option>
+    <option value="Autre">Autre</option>
+  </select>
+
+  <div *ngIf="OrderForm.get('region')?.invalid && OrderForm.get('region')?.touched" class="text-danger">
+    <small *ngIf="OrderForm.get('region')?.hasError('required')">La région est obligatoire.</small>
+  </div>
+</div>
+
+<!-- Exact address appears after a region is selected -->
+<div *ngIf="OrderForm.get('region')?.value" class="form-group mb-2">
+  <label>Adresse</label>
+  <input
+    type="text"
+    formControlName="address"
+    class="form-control shadow-sm"
+    placeholder="Entrez votre adresse (rue, n°, repère...)"
+    [ngClass]="{ 'is-invalid': OrderForm.get('address')?.invalid && OrderForm.get('address')?.touched }"
+  />
+  <div *ngIf="OrderForm.get('address')?.invalid && OrderForm.get('address')?.touched" class="text-danger">
+    <small *ngIf="OrderForm.get('address')?.hasError('required')">Adresse est obligatoire.</small>
+    <small *ngIf="OrderForm.get('address')?.hasError('minlength')">Entrez une adresse correcte (min 5 caractères).</small>
+  </div>
+</div>
+
+
+
+    <div class="d-grid mb-3">
+      <button class="btn btn-dark shadow mt-3" type="submit" [disabled]="posting">
+        <span *ngIf="posting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+        <span *ngIf="!posting">Submit</span>
+        <span *ngIf="posting">Envoi...</span>
+      </button>
+    </div>
+  </form>
+</div>

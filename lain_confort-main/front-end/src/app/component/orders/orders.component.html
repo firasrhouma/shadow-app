@@ -1,0 +1,60 @@
+<section class="container d-flex flex-column gap-5">
+  <div class="row">
+    <div class="col-lg-8">
+      <h3 class="lead fs-4 fw-medium bg-body-secondary p-3 rounded-2">Adresse de Livraison</h3>
+      <div class="bigCon mt-3">
+        <ng-container *ngIf="orders?.length; else noOrders">
+          <div *ngFor="let order of orders" class="conAddress my-2">
+            <h5>{{ order.order_details.address }}</h5>
+            <p class="m-0">{{ order.order_details.phone }}</p>
+            <p class="m-0">Client: {{ order.order_details.clientName }}</p>
+          </div>
+        </ng-container>
+        <ng-template #noOrders>
+          <p>Aucune commande trouvée.</p>
+        </ng-template>
+      </div>
+
+      <h2 class="lead fs-4 fw-medium bg-body-secondary p-3 rounded-2 mt-4">Votre Commande</h2>
+      <div class="bigCon mt-3">
+        <ng-container *ngIf="orders?.length; else emptyOrders">
+          <div *ngFor="let order of orders; let idx = index">
+            <h3 class="lead fs-5 fw-medium mt-3 conAddress text-center">Expédition {{ idx + 1 }}</h3>
+            <div class="conItems">
+              <div *ngFor="let item of order.order_details.products" class="item mb-3 d-flex align-items-start">
+                <div>
+                  <img [src]="getProductImage(item)" alt="{{ item.title }}" />
+                  <span class="quantity">x{{ item.quantity }}</span>
+                </div>
+                <div class="d-flex ms-auto flex-column">
+                  <h4 class="lead">{{ item.title }}</h4>
+                  <p><span class="fw-medium">{{ item.price ?? 0 }} DNT</span></p>
+                </div>
+              </div>
+              <hr />
+              <p class="fw-bold text-end">Total: {{ total(order) | number:'1.0-0' }} DNT</p>
+              <button class="btn btn-sm btn-outline-danger delete" (click)="deleteSpecificProduct(order._id)">Supprimer</button>
+            </div>
+            <hr class="my-5" />
+          </div>
+        </ng-container>
+        <ng-template #emptyOrders>
+          <p>Vous n'avez aucune commande pour le moment.</p>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <h3 class="lead fs-4 fw-medium bg-body-secondary p-3 rounded-2">Résumé de la Commande</h3>
+      <div class="bigCon mt-3">
+        <div class="conCheckout">
+          <div>
+            <h5>Total général :</h5>
+            <p>{{ total() | number:'1.0-0' }} DNT</p>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-danger mt-3 cancelOrder w-100" (click)="deleteAllOrders()">Annuler la Commande</button>
+    </div>
+  </div>
+</section>

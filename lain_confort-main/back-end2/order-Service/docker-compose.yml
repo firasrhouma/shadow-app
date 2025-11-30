@@ -1,0 +1,53 @@
+version: "3.8"
+
+services:
+  order-service:
+    build:
+      context: .
+    ports:
+      - "8082:8082"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - backend
+    environment:
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/orderdb?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: mysecret
+    volumes:
+      - ./src:/app/src       # Mount source code for hot reload
+      - ./pom.xml:/app/pom.xml
+      - ./target:/app/target # Optional: compiled classes
+
+  mysql:
+    image: mysql:8.0.33
+    command:
+      - --default-authentication-plugin=mysql_native_password
+      - --skip-log-bin
+      - --bind-address=0.0.0.0
+    environment:
+      MYSQL_ROOT_PASSWORD: mysecret
+      MYSQL_DATABASE: orderdb
+      MYSQL_ROOT_HOST: "%"
+    ports:
+      - "3310:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-uroot", "-pmysecret"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    restart: unless-stopped
+    networks:
+      backend:
+        aliases:
+          - mysql-docker
+
+volumes:
+  mysql_data:
+
+networks:
+  backend:

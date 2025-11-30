@@ -1,0 +1,212 @@
+<footer class="mt-5">
+  <div class="container py-2">
+    <div
+      class="Subscribe row align-items-center justify-content-between my-3 my-md-3"
+    > </div>
+    <div class="content-large d-none d-lg-block">
+      <div class="row my-4">
+
+        <div class="col-md">
+          <h6 class="fw-medium">Acheter par Catégorie</h6>
+          <ul class="list-unstyled">
+            <li class="lead fs-6"><a routerLink="/categories/Pouffe" class="text-decoration-none">Poufs</a></li>
+            <li class="lead fs-6"><a routerLink="/categories/Coussin" class="text-decoration-none"> Coussins </a></li>
+            <li class="lead fs-6"><a routerLink="/categories/Matelas" class="text-decoration-none">Matelas</a></li>
+          </ul>
+        </div>
+
+        <div class="col-md">
+          <h6 class="fw-medium">Informations</h6>
+          <ul class="list-unstyled">
+
+            <li class="lead fs-6">
+              <a routerLink="/contact-us">Nous contacter</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-md">
+          <h6 class="fw-medium">Mes Activités</h6>
+          <ul class="list-unstyled">
+            <li class="lead fs-6"> <a routerLink="/cart">Voir le Panier</a></li>
+            <li class="lead fs-6"><a routerLink="/wishlist">Ma Liste de Souhaits</a></li>
+            <li class="lead fs-6"><a routerLink="/orders">Historique des Commandes</a></li>
+          </ul>
+        </div>
+
+        <div class="col-md">
+          <h6 class="fw-medium">Infos de Contact</h6>
+          <address>
+            <p class="py-1">
+             +216 98383991 <br>
+             +216 53383991 <br>
+              lainecomfortdeco&#64;gmail.com
+            </p>
+          </address>
+          <div class="d-flex gap-3">
+
+            <button class="btn border border-white rounded-circle px-2 py-1">
+              <i class="fab fa-facebook-f"></i>
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Version mobile -->
+    <div class="content-small d-lg-none">
+      <div class="accordion" id="accordionShopByCategory">
+        <div class="accordion-item bg-transparent border-0">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button shadow-none collapsed bg-transparent text-white pe-5 position-relative"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseShopByCategory"
+            >
+              Acheter par Catégorie
+              <span
+                class="position-absolute end-0 me-3 top-50 translate-middle-y text-white icon-toggle"
+              >
+                <i class="fas fa-plus"></i>
+              </span>
+            </button>
+          </h2>
+          <div
+            id="collapseShopByCategory"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionShopByCategory"
+          >
+            <div class="accordion-body bg-transparent text-white">
+              <ul class="list-unstyled">
+                <li class="lead fs-6"><a routerLink="/categories/Pouffe" class="text-decoration-none">Poufs</a></li>
+            <li class="lead fs-6"><a routerLink="/categories/Coussin" class="text-decoration-none"> Coussins </a></li>
+            <li class="lead fs-6"><a routerLink="/categories/Matelas" class="text-decoration-none">Matelas</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion" id="accordionInformation">
+        <div class="accordion-item bg-transparent border-0">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button shadow-none collapsed bg-transparent text-white pe-5 position-relative"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseInformation"
+            >
+              Informations
+              <span
+                class="position-absolute end-0 me-3 top-50 translate-middle-y text-white icon-toggle"
+              >
+                <i class="fas fa-plus"></i>
+              </span>
+            </button>
+          </h2>
+          <div
+            id="collapseInformation"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionInformation"
+          >
+            <div class="accordion-body bg-transparent text-white">
+              <ul class="list-unstyled">
+                <li class="lead fs-6">
+
+                <li class="lead fs-6">
+                  <a routerLink="/contact-us">Nous contacter</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion" id="accordionMyAccount">
+        <div class="accordion-item bg-transparent border-0">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button shadow-none collapsed bg-transparent text-white pe-5 position-relative"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseMyAccount"
+            >
+              Mes Activités
+              <span
+                class="position-absolute end-0 me-3 top-50 translate-middle-y text-white icon-toggle"
+              >
+                <i class="fas fa-plus"></i>
+              </span>
+            </button>
+          </h2>
+          <div
+            id="collapseMyAccount"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionMyAccount"
+          >
+            <div class="accordion-body bg-transparent text-white">
+              <ul class="list-unstyled">
+                <li class="lead fs-6"> <a routerLink="/cart">Voir le Panier</a></li>
+            <li class="lead fs-6"><a routerLink="/wishlist">Ma Liste de Souhaits</a></li>
+            <li class="lead fs-6"><a routerLink="/orders">Historique des Commandes</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion" id="accordionContactInfo">
+        <div class="accordion-item bg-transparent border-0">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button shadow-none collapsed bg-transparent text-white pe-5 position-relative"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseContactInfo"
+            >
+              Infos de Contact
+              <span
+                class="position-absolute end-0 me-3 top-50 translate-middle-y text-white icon-toggle"
+              >
+                <i class="fas fa-plus"></i>
+              </span>
+            </button>
+          </h2>
+          <div
+            id="collapseContactInfo"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionContactInfo"
+          >
+            <div class="accordion-body bg-transparent text-white">
+              <address>
+            <p class="py-1">
+             +216 98383991 <br>
+             +216 53383991 <br>
+              lainecomfortdeco&#64;gmail.com
+            </p>
+          </address>
+              <div class="d-flex gap-3">
+
+                <button class="btn border border-white rounded-circle px-2">
+                  <i class="fab fa-facebook-f text-white"> <a href="https://www.facebook.com/profile.php?id=100056014822782"></a></i>
+                </button>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white text-dark">
+    <div
+      class="container d-flex flex-column flex-lg-row justify-content-center align-items-center justify-content-lg-between py-2 copyright"
+    >
+      <h6 class="lead fs-5">© 2025, Laine Comfort Deco</h6>
+    </div>
+  </div>
+</footer>

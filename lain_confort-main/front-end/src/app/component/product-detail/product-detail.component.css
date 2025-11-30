@@ -1,0 +1,73 @@
+
+.head fa-icon {
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+@media (max-width: 991px) {
+  .image {
+    width: 75%;
+    margin: auto;
+  }
+}
+.addComment {
+  position: relative;
+  display: flex;
+}
+.addComment input {
+  width: 90%;
+  box-shadow: none;
+}
+
+.addComment fa-icon {
+  width: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: none !important;
+}
+.userReview .userImage img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50% !important;
+}
+.imageContainer {
+  width: 100%;
+  height: 512px;
+}
+.imageContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.delComment i,
+.editComment i {
+  cursor: pointer;
+  transition: 0.3s;
+}
+.delComment i:hover {
+  color: red;
+}
+.editComment i:hover {
+  color: rgb(0, 0, 255);
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popUp-AddProduct {
+  position: fixed;
+  overflow: auto;
+  width: 70vw;
+  z-index: 99999999999;
+  height: auto;
+}

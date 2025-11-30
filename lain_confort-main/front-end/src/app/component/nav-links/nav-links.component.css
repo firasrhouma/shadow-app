@@ -1,0 +1,15 @@
+
+.navLiks {
+  background-color: var(--secondary-color);
+  padding: 50px 20px;
+}
+.navLiks a{
+  text-decoration: none;
+  margin-right: 10px;
+  color: black;
+}
+.navLiks a:nth-child(1){
+  text-decoration: underline;
+  margin-right: 10px;
+  color: var(--text-muted);
+}

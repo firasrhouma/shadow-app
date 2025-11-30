@@ -1,0 +1,26 @@
+# Java/Maven build artifacts
+
+build/
+
+# IDE & logs & sockets
+.idea/
+.vscode/
+*.log
+*.sock
+mysql/
+target
+.git
+.idea
+.vscode
+*.iml
+mysql/
+*.sock
+*.cnf
+*.pid
+*.ibd
+*.log
+*.gz
+
+
+# Keep .mvn/ and mvnw so Docker can build
+# (no rule for .mvn/)

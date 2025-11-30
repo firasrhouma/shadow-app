@@ -1,0 +1,87 @@
+.navbar-brand img {
+  width: 100px;
+  padding: 0;
+}
+.nav-link {
+  transition: unset !important;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.active-link {
+  color: black;
+  font-weight: 600;
+}
+.icons > li i {
+  font-size: 17px;
+  transition: 0.3s;
+}
+.icons > li:hover i {
+  transform: scale(1.1);
+  transition: 0.3s;
+}
+.icons > li:last-child:hover i {
+  animation: logout infinite alternate 0.2s;
+}
+
+
+.nav-item {
+  padding: 0 10px;
+  font-size: 17px;
+}
+
+.cart-badge {
+  font-size: 0.7rem;
+  position: absolute;
+  top: 5px;
+  left: 80%;
+  transform: translate(-50%, 10%);
+}
+
+@media (max-width: 575.98px) {
+  .cart-badge {
+    left: 60%;
+    font-size: 0.6rem;
+    top: 4px;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .cart-badge {
+    left: 60%;
+    font-size: 0.65rem;
+    top: 5px;
+  }
+}
+
+
+
+.wishlist-icon {
+  color: #dc3545;
+
+}
+
+.spanWishlist{ position: absolute;
+   top: -3px;
+   right: 5px;
+   background-color: #dc3545;
+    border-radius: 50%;
+     width: 20px;
+     height: 20px;
+      color: white;
+       text-align: center;
+        font-size: 14px;
+        font-weight: 500; }
+
+/* Optional: adjust for very small screens */
+@media (max-width: 575.98px) {
+
+  .spanWishlist {
+    width: 20px;
+     height: 20px;
+   font-size: 0.7rem;
+   font-weight: bold;
+    top: -4px;
+    right: 90px;
+  }
+}
