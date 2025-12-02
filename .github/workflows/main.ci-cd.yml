@@ -1,0 +1,55 @@
+name: CI-CD Laine Confort
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch: {}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Récupérer le code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Build back-end product-service
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build product-service
+        working-directory: ./back-end1/product-service
+        run: ./mvnw clean package -DskipTests
+
+      # 3. Build back-end order-Service
+      - name: Build order-Service
+        working-directory: ./back-end2/order-Service
+        run: ./mvnw clean package -DskipTests
+
+      # 4. Build front Angular
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install front dependencies
+        working-directory: ./front-end
+        run: npm ci
+
+      - name: Build Angular front
+        working-directory: ./front-end
+        run: npm run build -- --configuration production
+
+      # 5. Déploiement sur la VM (via script)
+      - name: Deploy to VM via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          key: ${{ secrets.VM_SSH_KEY }}
+          script: |
+            ~/deploy-laincomfort.sh
