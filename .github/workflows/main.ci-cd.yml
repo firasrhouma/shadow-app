@@ -9,58 +9,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout repo
-      - name: Checkout repository
-        uses: actions/checkout@v3
 
-      # ---------- BUILD BACKEND 1 ----------
-      - name: Set up JDK 17 for product-service
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: Build product-service
-        run: |
-          cd lain_confort-main/back-end1/product-service
-          chmod +x mvnw
-          ./mvnw clean package -DskipTests
+    # Install Node
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
 
-      # ---------- BUILD BACKEND 2 ----------
-      - name: Build order-service
-        run: |
-          cd lain_confort-main/back-end2/order-Service
-          chmod +x mvnw
-          ./mvnw clean package -DskipTests
+    # Build Angular
+    - name: Build Angular Front
+      run: |
+        cd lain_confort-main/front-end
+        npm install
+        npm run build
 
-      # ---------- BUILD ANGULAR ----------
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Install front dependencies
-        run: |
-          cd lain_confort-main/front-end
-          npm install
-
-      - name: Build Angular front-end
-        run: |
-          cd lain_confort-main/front-end
-          npm run build --prod
-          
-      # ---------- DEPLOY TO VM ----------
-      - name: Deploy to VM via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: 4.211.255.55
-          username: firas
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd /var/www/laincomfort
-            sudo rm -rf *
-            
-            git clone https://github.com/firasrhouma/shadow-app.git .
-            
-            sudo cp -r lain_confort-main/front-end/dist/* /var/www/html/
-            sudo systemctl restart nginx
+    # Deploy to VM
+    - name: Deploy to VM via SSH
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          sudo rm -rf /var/www/html/*
+          sudo cp -r ~/shadow-app/lain_confort-main/front-end/dist/* /var/www/html/
+          sudo systemctl restart nginx
