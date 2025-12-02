@@ -45,16 +45,18 @@ jobs:
         npm run build --prod
 
     # DEPLOY TO VM
-    - name: Deploy to VM via SSH
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: |
-          cd /var/www/laincomfort
-          sudo rm -rf *
-          git clone https://github.com/firasrhouma/shadow-app.git
-          cd shadow-app/lain_confort-main/front-end/dist
-          sudo cp -r * /var/www/html/
-          sudo systemctl restart nginx
+          - name: Deploy to VM via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 4.211.255.55
+          username: firas
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd /var/www/laincomfort
+            sudo rm -rf *
+            git clone https://github.com/firasrhouma/shadow-app.git .
+            cd lain_confort-main/front-end/dist
+            sudo cp -r * /var/www/html/
+            sudo systemctl restart nginx
+
