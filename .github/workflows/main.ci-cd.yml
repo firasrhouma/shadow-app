@@ -12,59 +12,49 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    ##############################
-    #     BUILD PRODUCT-SERVICE   #
-    ##############################
-    - name: Set up JDK
+    - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
-        distribution: 'temurin'
         java-version: '17'
+        distribution: 'temurin'
 
+    # BUILD PRODUCT-SERVICE
     - name: Build product-service
-      working-directory: ./lain_confort-main/back-end1/product-service
+      working-directory: lain_confort-main/back-end1/product-service
       run: |
         chmod +x mvnw
         ./mvnw clean package -DskipTests
 
-    ##############################
-    #      BUILD ORDER-SERVICE    #
-    ##############################
-    - name: Build order-Service
-      working-directory: ./lain_confort-main/back-end2/order-Service
+    # BUILD ORDER-SERVICE
+    - name: Build order-service
+      working-directory: lain_confort-main/back-end2/order-Service
       run: |
         chmod +x mvnw
         ./mvnw clean package -DskipTests
 
-    ##############################
-    #        BUILD ANGULAR        #
-    ##############################
-    - name: Set up Node
+    # BUILD ANGULAR FRONT
+    - name: Install Node
       uses: actions/setup-node@v3
       with:
-        node-version: '18'
+        node-version: 18
 
-    - name: Install front dependencies
-      working-directory: ./lain_confort-main/front-end
-      run: npm install --force
+    - name: Build Angular front-end
+      working-directory: lain_confort-main/front-end
+      run: |
+        npm install
+        npm run build --prod
 
-    - name: Build Angular app
-      working-directory: ./lain_confort-main/front-end
-      run: npm run build --prod
-
-    ################################
-    #           DEPLOY SSH          #
-    ################################
+    # DEPLOY TO VM
     - name: Deploy to VM via SSH
       uses: appleboy/ssh-action@v1.0.3
       with:
-        host: ${{ secrets.VM_HOST }}
-        username: ${{ secrets.VM_USER }}
-        password: ${{ secrets.VM_PASS }}
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           cd /var/www/laincomfort
           sudo rm -rf *
-          git clone https://github.com/firasrhouma/shadow-app.git .
-          cd lain_confort-main/front-end/dist
+          git clone https://github.com/firasrhouma/shadow-app.git
+          cd shadow-app/lain_confort-main/front-end/dist
           sudo cp -r * /var/www/html/
           sudo systemctl restart nginx
