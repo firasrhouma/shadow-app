@@ -9,10 +9,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Build PRODUCT SERVICE
+      # ---------- BUILD BACKEND 1 ----------
       - name: Set up JDK 17 for product-service
         uses: actions/setup-java@v3
         with:
@@ -25,16 +26,16 @@ jobs:
           chmod +x mvnw
           ./mvnw clean package -DskipTests
 
-      # Build ORDER SERVICE
+      # ---------- BUILD BACKEND 2 ----------
       - name: Build order-service
         run: |
           cd lain_confort-main/back-end2/order-Service
           chmod +x mvnw
           ./mvnw clean package -DskipTests
 
-      # Build Angular Frontend
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      # ---------- BUILD ANGULAR ----------
+      - name: Set up Node
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
 
@@ -43,21 +44,23 @@ jobs:
           cd lain_confort-main/front-end
           npm install
 
-      - name: Build Angular frontend
+      - name: Build Angular front-end
         run: |
           cd lain_confort-main/front-end
           npm run build --prod
-
-      # Deploy via SSH
+          
+      # ---------- DEPLOY TO VM ----------
       - name: Deploy to VM via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: 4.211.255.55
           username: firas
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
           script: |
-            sudo rm -rf /var/www/laincomfort/*
-            git clone https://github.com/firasrhouma/shadow-app.git /var/www/laincomfort
-            sudo cp -r /var/www/laincomfort/lain_confort-main/front-end/dist/* /var/www/html/
+            cd /var/www/laincomfort
+            sudo rm -rf *
+            
+            git clone https://github.com/firasrhouma/shadow-app.git .
+            
+            sudo cp -r lain_confort-main/front-end/dist/* /var/www/html/
             sudo systemctl restart nginx
