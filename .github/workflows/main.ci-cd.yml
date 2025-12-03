@@ -9,10 +9,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+      # Checkout repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      ###############################################
       # Build PRODUCT SERVICE
+      ###############################################
       - name: Set up JDK 17 for product-service
         uses: actions/setup-java@v3
         with:
@@ -25,14 +29,18 @@ jobs:
           chmod +x mvnw
           ./mvnw clean package -DskipTests
 
+      ###############################################
       # Build ORDER SERVICE
+      ###############################################
       - name: Build order-service
         run: |
           cd lain_confort-main/back-end2/order-Service
           chmod +x mvnw
           ./mvnw clean package -DskipTests
 
-      # Build Angular Frontend
+      ###############################################
+      # Build Angular Front-End
+      ###############################################
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
@@ -48,7 +56,9 @@ jobs:
           cd lain_confort-main/front-end
           npm run build --prod
 
+      ###############################################
       # Deploy via SSH
+      ###############################################
       - name: Deploy to VM via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -57,15 +67,17 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            echo "=== CLEANING Laincomfort folder ==="
-            sudo rm -rf /var/www/laincomfort
+            echo "=== CLEANING OLD HTML FILES ==="
+            sudo rm -rf /var/www/html/*
+
+            echo "=== CLEANING OLD PROJECT FOLDER ==="
+            sudo rm -rf /var/www/laincomfort/*
             sudo mkdir -p /var/www/laincomfort
 
             echo "=== CLONING LATEST PROJECT ==="
-            sudo git clone https://github.com/firasrhouma/shadow-app.git /var/www/laincomfort
+            git clone https://github.com/firasrhouma/shadow-app.git /var/www/laincomfort
 
             echo "=== COPYING FRONT-END BUILD ==="
-            sudo rm -rf /var/www/html/*
             sudo cp -r /var/www/laincomfort/lain_confort-main/front-end/dist/* /var/www/html/
 
             echo "=== RESTARTING NGINX ==="
