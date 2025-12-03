@@ -12,9 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      ###############################################
       # Build PRODUCT SERVICE
-      ###############################################
       - name: Set up JDK 17 for product-service
         uses: actions/setup-java@v3
         with:
@@ -27,18 +25,14 @@ jobs:
           chmod +x mvnw
           ./mvnw clean package -DskipTests
 
-      ###############################################
       # Build ORDER SERVICE
-      ###############################################
       - name: Build order-service
         run: |
           cd lain_confort-main/back-end2/order-Service
           chmod +x mvnw
           ./mvnw clean package -DskipTests
 
-      ###############################################
       # Build Angular Frontend
-      ###############################################
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
@@ -54,9 +48,7 @@ jobs:
           cd lain_confort-main/front-end
           npm run build --prod
 
-      ###############################################
-      # DEPLOY TO VM
-      ###############################################
+      # Deploy via SSH
       - name: Deploy to VM via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -65,10 +57,16 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            sudo rm -rf /var/www/laincomfort/*
+            echo "=== CLEANING Laincomfort folder ==="
+            sudo rm -rf /var/www/laincomfort
+            sudo mkdir -p /var/www/laincomfort
+
+            echo "=== CLONING LATEST PROJECT ==="
             sudo git clone https://github.com/firasrhouma/shadow-app.git /var/www/laincomfort
 
-            # COPY THE CORRECT DIST FOLDER
-            sudo cp -r /var/www/laincomfort/lain_confort-main/front-end/dist/browser/* /var/www/html/
+            echo "=== COPYING FRONT-END BUILD ==="
+            sudo rm -rf /var/www/html/*
+            sudo cp -r /var/www/laincomfort/lain_confort-main/front-end/dist/* /var/www/html/
 
+            echo "=== RESTARTING NGINX ==="
             sudo systemctl restart nginx
