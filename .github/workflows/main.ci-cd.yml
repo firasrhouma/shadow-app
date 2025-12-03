@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -32,7 +33,7 @@ jobs:
           chmod +x mvnw
           ./mvnw clean package -DskipTests
 
-      # Build Angular Frontend
+      # Build Angular
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
@@ -48,6 +49,13 @@ jobs:
           cd lain_confort-main/front-end
           npm run build --prod
 
+      # Upload Angular build
+      - name: Upload Angular build
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-build
+          path: lain_confort-main/front-end/dist/
+
       # Deploy via SSH
       - name: Deploy to VM via SSH
         uses: appleboy/ssh-action@v1.0.3
@@ -57,7 +65,16 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            sudo rm -rf /var/www/laincomfort/*
-            git clone https://github.com/firasrhouma/shadow-app.git /var/www/laincomfort
-            sudo cp -r /var/www/laincomfort/lain_confort-main/front-end/dist/* /var/www/html/
+            echo "==== CLEANING old /var/www/html ===="
+            sudo rm -rf /var/www/html/*
+
+            echo "==== DOWNLOAD latest ANGULAR build ===="
+            curl -L -o dist.zip https://github.com/${{ github.repository }}/releases/latest/download/dist-build.zip
+
+            echo "==== UNZIP build into /var/www/html ===="
+            sudo unzip -o dist.zip -d /var/www/html/
+
+            echo "==== RESTART NGINX ===="
+            sudo systemctl restart nginx
+omfort/lain_confort-main/front-end/dist/* /var/www/html/
             sudo systemctl restart nginx
