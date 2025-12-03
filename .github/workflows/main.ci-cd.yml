@@ -12,7 +12,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      ###############################################
       # Build PRODUCT SERVICE
+      ###############################################
       - name: Set up JDK 17 for product-service
         uses: actions/setup-java@v3
         with:
@@ -25,14 +27,18 @@ jobs:
           chmod +x mvnw
           ./mvnw clean package -DskipTests
 
+      ###############################################
       # Build ORDER SERVICE
+      ###############################################
       - name: Build order-service
         run: |
           cd lain_confort-main/back-end2/order-Service
           chmod +x mvnw
           ./mvnw clean package -DskipTests
 
+      ###############################################
       # Build Angular Frontend
+      ###############################################
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
@@ -48,14 +54,9 @@ jobs:
           cd lain_confort-main/front-end
           npm run build --prod
 
-      # Export Angular build as ZIP artifact
-      - name: Upload Angular build
-        uses: actions/upload-artifact@v3
-        with:
-          name: dist-build
-          path: lain_confort-main/front-end/dist/
-
-      # Deploy to VM
+      ###############################################
+      # DEPLOY TO VM
+      ###############################################
       - name: Deploy to VM via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -64,14 +65,10 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            echo "==== CLEANING /var/www/html ===="
-            sudo rm -rf /var/www/html/*
+            sudo rm -rf /var/www/laincomfort/*
+            sudo git clone https://github.com/firasrhouma/shadow-app.git /var/www/laincomfort
 
-            echo "==== DOWNLOAD LATEST ANGULAR ZIP ===="
-            curl -L -o dist.zip https://github.com/${{ github.repository }}/releases/latest/download/dist-build.zip
+            # COPY THE CORRECT DIST FOLDER
+            sudo cp -r /var/www/laincomfort/lain_confort-main/front-end/dist/browser/* /var/www/html/
 
-            echo "==== UNZIP build into /var/www/html ===="
-            sudo unzip -o dist.zip -d /var/www/html/
-
-            echo "==== RESTART NGINX ===="
             sudo systemctl restart nginx
