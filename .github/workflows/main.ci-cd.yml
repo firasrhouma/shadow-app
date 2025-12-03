@@ -9,18 +9,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Cloner le repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      #########################################################
-      # 2. Build PRODUCT-SERVICE
-      #########################################################
-      - name: Set up JDK 17
+      # Build PRODUCT SERVICE
+      - name: Set up JDK 17 for product-service
         uses: actions/setup-java@v3
         with:
-          java-version: "17"
-          distribution: "temurin"
+          java-version: '17'
+          distribution: 'temurin'
 
       - name: Build product-service
         run: |
@@ -28,51 +25,39 @@ jobs:
           chmod +x mvnw
           ./mvnw clean package -DskipTests
 
-      #########################################################
-      # 3. Build ORDER-SERVICE
-      #########################################################
+      # Build ORDER SERVICE
       - name: Build order-service
         run: |
           cd lain_confort-main/back-end2/order-Service
           chmod +x mvnw
           ./mvnw clean package -DskipTests
 
-      #########################################################
-      # 4. Build Angular FRONT-END
-      #########################################################
+      # Build Angular Frontend
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: "18"
+          node-version: '18'
 
       - name: Install front dependencies
         run: |
           cd lain_confort-main/front-end
           npm install
 
-      - name: Build Angular
+      - name: Build Angular frontend
         run: |
           cd lain_confort-main/front-end
           npm run build --prod
 
-      #########################################################
-      # 5. DEPLOY TO VM
-      #########################################################
+      # Deploy via SSH
       - name: Deploy to VM via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.VM_USER }}         # FIX 1 ✔
-          key: ${{ secrets.SSH_PRIVATE_KEY }}      # FIX 2 ✔
+          host: 4.211.255.55
+          username: firas
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-
           script: |
-            echo "==== CLEAN OLD FILES ===="
-            sudo rm -rf /var/www/html/*
-
-            echo "==== COPY NEW FRONT BUILD ===="
-            sudo cp -r /home/firas/shadow-app/lain_confort-main/front-end/dist/* /var/www/html/
-
-            echo "==== RESTART NGINX ===="
+            sudo rm -rf /var/www/laincomfort/*
+            git clone https://github.com/firasrhouma/shadow-app.git /var/www/laincomfort
+            sudo cp -r /var/www/laincomfort/lain_confort-main/front-end/dist/* /var/www/html/
             sudo systemctl restart nginx
-
